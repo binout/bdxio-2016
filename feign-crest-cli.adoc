@@ -1,0 +1,37 @@
+= Feign + CREST = CLI
+
+== Me
+
+== Équation
+
+Feign : client http
+CREST : librairie pour faire une CLI
+
+== Feign
+
+Description
+
+== Example Feign
+
+Code
+
+== CREST
+
+description
+
+== Example CREDT
+
+code
+
+== Les deux ensemble
+
+Très peu de code pour faire un client http en ligne de commande
+
+== Example Pokémon API
+
+Code
+
+== Conclusion
+
+Nombre de lignes de code
+Taille du jar

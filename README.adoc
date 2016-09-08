@@ -1,0 +1,23 @@
+= Bdx IO 2016
+:compat-mode:
+
+Material for quickie talks at http://www.bdx.io/#/program[BDX IO 2016]
+
+== Pre-requesites
+
+* Ant
+* Internet
+
+== Slide generation
+
+I'm using https://github.com/asciidoctor/asciidoctor-ant[+asciidoctor+ ant plugin] with +deckjs+ as +asciidoctor+ backend.
+
+You can find more information on asciidoctor site :
+
+* http://asciidoctor.org/docs/install-and-use-deckjs-backend/
+
+You can generate HTML slides with the following command :
+[source]
+----
+ant
+----
