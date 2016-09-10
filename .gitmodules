@@ -1,0 +1,3 @@
+[submodule "dropbox-cli"]
+	path = dropbox-cli
+	url = git@github.com:binout/dropbox-cli.git
