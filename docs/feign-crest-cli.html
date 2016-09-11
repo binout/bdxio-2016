@@ -4,7 +4,16 @@
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 <meta content="Asciidoctor 1.5.0" name="generator" />
-<title>Feign + CREST = CLI</title>
+<title>FEIGN + CREST = REST CLI</title>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 1.2em; height: 1.2em; font-size: 0.9em; font-weight: bold; line-height: 1.2; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -0.1em; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+.colist table td:first-of-type { padding-right: 0.25em; }
+</style>
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
@@ -109,45 +118,350 @@ table.CodeRay td.code>pre{padding:0}
 <body class="article">
 <div class="deck-container">
 <section class="slide" id="title-slide">
-<h1>Feign + CREST = CLI</h1>
+<h1>FEIGN + CREST = REST CLI</h1>
 </section>
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="bdx io" src="images/bdx-io.png" />
+</div>
+</div>
+</div>
+</div>
 <section class="slide" id="_me">
 <h2>Me</h2>
-
+<div class="paragraph"><p><span class="icon"><i class="icon-twitter"></i></span> @binout
+<span class="icon"><i class="icon-github"></i></span> <a class="bare" href="https://github.com/binout">https://github.com/binout</a></p></div>
+<div class="imageblock">
+<div class="content">
+<img alt="me" src="images/me.png" />
+</div>
+</div>
 </section>
 <section class="slide" id="_Équation">
 <h2>Équation</h2>
-<div class="paragraph"><p>Feign : client http
-CREST : librairie pour faire une CLI</p></div>
+<div class="quoteblock">
+<blockquote>
+FEIGN + CREST = REST CLI
+</blockquote>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">FEIGN</dt>
+<dd>
+<p>librairie pour faire un client http</p>
+</dd>
+<dt class="hdlist1">CREST</dt>
+<dd>
+<p>librairie pour faire une Command Line Interface</p>
+</dd>
+</dl>
+</div>
+</section>
+<section class="slide" id="_cas_d_utilisation">
+<h2>Cas d&#8217;utilisation</h2>
+<div class="quoteblock">
+<blockquote>
+Je veux faire un outil en ligne de commande
+pour gérer ma Dropbox
+</blockquote>
+</div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="dropbox" src="images/dropbox.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="_api_dropbox">
+<h2>API Dropbox</h2>
+<div class="paragraph"><p><a class="bare" href="https://dropbox.github.io/dropbox-api-v2-explorer/">https://dropbox.github.io/dropbox-api-v2-explorer/</a></p></div>
+<div class="imageblock">
+<div class="content">
+<img alt="dropbox api" src="images/dropbox-api.png" />
+</div>
+</div>
 </section>
 <section class="slide" id="_feign">
 <h2>Feign</h2>
-<div class="paragraph"><p>Description</p></div>
+<div class="paragraph"><p><a class="bare" href="https://github.com/OpenFeign/feign">https://github.com/OpenFeign/feign</a></p></div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="netflix" src="images/netflix.png" />
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>client http en java</li>
+<li>pas de dépendances</li>
+<li>des modules d&#8217;extension : jackson, gson, jaxb, jaxrs &#8230;&#8203;</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>com.netflix.feign<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>feign-core<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>${feign.version}<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
 </section>
-<section class="slide" id="_example_feign">
-<h2>Example Feign</h2>
-<div class="paragraph"><p>Code</p></div>
+<section class="slide" id="_juste_une_interface">
+<h2>Juste une interface</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">Dropbox</span> {
+
+    <span class="annotation">@RequestLine</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">POST /files/list_folder</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Headers</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span>)
+    FolderList listFolder(Path path);
+
+    <span class="annotation">@RequestLine</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">POST /files/create_folder</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Headers</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span>)
+    <span class="type">void</span> createFolder(Path path);
+
+    <span class="annotation">@RequestLine</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">POST /users/get_current_account</span><span class="delimiter">&quot;</span></span>)
+    Account currentAccount();</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_feign_builder">
+<h2>Feign Builder</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">static</span> Dropbox api() {
+        <span class="keyword">return</span> Feign.builder()
+                .encoder(<span class="keyword">new</span> GsonEncoder())
+                .decoder(<span class="keyword">new</span> GsonDecoder())
+                .requestInterceptor(r -&gt; r.header(<span class="string"><span class="delimiter">&quot;</span><span class="content">Authorization</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Bearer </span><span class="delimiter">&quot;</span></span> + apiKey()))
+                .target(Dropbox.class, <span class="string"><span class="delimiter">&quot;</span><span class="content">https://api.dropboxapi.com/2</span><span class="delimiter">&quot;</span></span>);
+    }</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_pas_plus_compliqué_que_ça">
+<h2>Pas plus compliqué que ça !</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> main(<span class="predefined-type">String</span><span class="type">[]</span> args) {
+        Dropbox.api()
+                .listFolder(<span class="keyword">new</span> Path(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>))
+                .stream()
+                .map(Folder::getName)
+                .forEach(<span class="predefined-type">System</span>.out::println);
+    }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code>/Photos
+/Public
+/Documents</code></pre>
+</div>
+</div>
 </section>
 <section class="slide" id="_crest">
 <h2>CREST</h2>
-<div class="paragraph"><p>description</p></div>
+<div class="paragraph"><p><a class="bare" href="https://github.com/tomitribe/crest">https://github.com/tomitribe/crest</a></p></div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="tomitribe" src="images/tomitribe.png" />
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>permet de faire rapidement des outils en ligne de commande</li>
+<li>basé sur des annotations (<em>JAX-RS style</em>)</li>
+<li>gère la validation des paramètres et la génération d&#8217;aide</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.tomitribe<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>tomitribe-crest-api<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>${tomitribe.version}<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.tomitribe<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>tomitribe-crest<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>${tomitribe.version}<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;scope&gt;</span>runtime<span class="tag">&lt;/scope&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
 </section>
-<section class="slide" id="_example_credt">
-<h2>Example CREDT</h2>
-<div class="paragraph"><p>code</p></div>
+<section class="slide" id="_une_méthode_une_commande">
+<h2>Une méthode = une commande</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Command</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> whoami() {
+        <span class="keyword">return</span> API.currentAccount().getName().getDisplayName();
+    }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>le nom de la méthode est le nom de la commande</li>
+<li>le retour de la méthode est envoyée vers la sortie standard</li>
+</ul>
+</div>
 </section>
-<section class="slide" id="_les_deux_ensemble">
-<h2>Les deux ensemble</h2>
-<div class="paragraph"><p>Très peu de code pour faire un client http en ligne de commande</p></div>
+<section class="slide" id="_une_commandes_avec_des_paramètres">
+<h2>Une commandes avec des paramètres</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Command</span>
+    <span class="directive">public</span> <span class="type">void</span> mkdir(Path path) {
+        API.createFolder(path);
+    }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>tout paramètre de la méthode est un paramètre <strong>obligatoire</strong>
+de la commande</li>
+</ul>
+</div>
 </section>
-<section class="slide" id="_example_pokémon_api">
-<h2>Example Pokémon API</h2>
-<div class="paragraph"><p>Code</p></div>
+<section class="slide" id="_une_commande_avec_des_options">
+<h2>Une commande avec des options</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Command</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> ls(<span class="annotation">@Option</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="annotation">@Default</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>) Path path) {
+        <span class="keyword">return</span> API.listFolder(path).stream()
+                .map(Folder::getName)
+                .collect(joining(lineSeparator()));
+    }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>tout paramètre de la méthode annoté avec <code>@Options</code> est
+un paramètre <code>falculatif</code> de la commande</li>
+<li><code>@Default</code> permet de donner une valeur par défaut d&#8217;une option</li>
+</ul>
+</div>
 </section>
-<section class="slide" id="_conclusion">
-<h2>Conclusion</h2>
-<div class="paragraph"><p>Nombre de lignes de code
-Taille du jar</p></div>
+<section class="slide" id="_appeler_une_commande">
+<h2>Appeler une commande</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code>$ java -jar dropbox-cli.jar mkdir
+Missing argument: Path...
+
+Usage: mkdir Path</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="icon-note" title="Note"></i>
+</td>
+<td class="content">
+Crest fournit une classe Main par défaut : <code>org.tomitribe.crest.Main</code>
+</td>
+</tr>
+</table>
+</div>
+</section>
+<section class="slide" id="_intégration_avec_jline">
+<h2>Intégration avec JLine</h2>
+<div class="ulist">
+<ul>
+<li>complétion des commandes</li>
+<li>ajoute des commandes basiques : <code>help</code>, <code>exit</code>, <code>clear</code> &#8230;&#8203;</li>
+<li>gère un historique</li>
+<li>support le pipe <code>|</code></li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.tomitribe<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>tomitribe-crest-cli<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>${tomitribe.version}<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> main(<span class="predefined-type">String</span><span class="type">[]</span> args) <span class="directive">throws</span> <span class="exception">Exception</span> {
+        <span class="keyword">new</span> CrestCli().run(args);
+    }</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_commmand_line_interface">
+<h2>Commmand Line Interface</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code>$ java -jar dropbox-cli.jar
+
+benoit@1.8.0 $ help
+Commands:
+
+   clear
+   exit
+   help
+   ls
+   mkdir
+   whoami
+
+benoit@1.8.0 $ whoami
+Benoit Prioux</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_démo_dropbox">
+<h2>Démo Dropbox</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="dropbox demo" src="images/dropbox-demo.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="_pas_mal_non">
+<h2>Pas mal non ?</h2>
+<div class="paragraph"><p>Très peu de code pour faire un client http en ligne de commande :</p></div>
+<div class="ulist">
+<ul>
+<li>une interface Feign (+ les POJOs pour le mapping Json)</li>
+<li>une classe de commands CREST</li>
+</ul>
+</div>
+<div class="paragraph"><p>Ajouter une nouvelle commande :</p></div>
+<div class="ulist">
+<ul>
+<li>ajouter une méthode dans l&#8217;interface Feign</li>
+<li>ajouter une méthode dans la classe des commandes Crest</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_one_more_command">
+<h2>One more command ?</h2>
+<div class="quoteblock">
+<blockquote>
+Et si on codait ensemble la génération de lien temporaire ?
+</blockquote>
+</div>
+<div class="listingblock">
+<div class="title">get_temporary_link</div>
+<div class="content">
+<pre class="CodeRay"><code>POST /2/files/get_temporary_link
+Content-Type: application/json
+{
+    "path": ""
+}</code></pre>
+</div>
+</div>
 </section>
 <div aria-role="navigation">
 <a class="deck-prev-link" href="#" title="Previous">&#8592;</a>

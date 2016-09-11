@@ -1,6 +1,13 @@
 = La boîte à outils pour une living documentation
 
+image::bdx-io.png[float="right"]
+
 == Me
+
+icon:twitter[] @binout
+icon:github[] https://github.com/binout
+
+image::me.png[]
 
 == Il y un an ...
 

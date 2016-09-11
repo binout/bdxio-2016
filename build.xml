@@ -4,7 +4,7 @@
 	<property name="github" value="https://github.com"/>
 	<property name="deckjs-version" value="1.1.0"/>
     <property name="dist" value="${basedir}/docs"/>
-    
+
     <target name="asciidoctor-def">
 			  <mkdir dir="${basedir}/lib"/>
         <get src="${maven.central}/org/asciidoctor/asciidoctor-ant/${asciidoctor-version}/asciidoctor-ant-${asciidoctor-version}.jar"
@@ -40,6 +40,7 @@
 						<attribute key="navigation" value="true"/>
 						<attribute key="goto" value="true"/>
 						<attribute key="status" value="true"/>
+						<attribute key="basedir" value="${basedir}"/>
 						<resource dir="${basedir}/images"/>
         </asciidoctor:convert>
 				<unzip src="${basedir}/lib/deck.js-${deckjs-version}.zip" dest="${dist}"/>

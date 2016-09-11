@@ -1,37 +1,226 @@
-= Feign + CREST = CLI
+= FEIGN + CREST = REST CLI
+:icons: font
+:src: {basedir}/dropbox-cli/src/main/java/io/github/binout/dropbox
+:test: {basedir}/dropbox-cli/src/test/java/io/github/binout/dropbox
+
+image::bdx-io.png[float="right"]
 
 == Me
 
+icon:twitter[] @binout
+icon:github[] https://github.com/binout
+
+image::me.png[]
+
 == Équation
 
-Feign : client http
-CREST : librairie pour faire une CLI
+[quote]
+FEIGN + CREST = REST CLI
+
+FEIGN:: librairie pour faire un client http
+
+CREST:: librairie pour faire une Command Line Interface
+
+== Cas d'utilisation
+
+[quote]
+Je veux faire un outil en ligne de commande
+pour gérer ma Dropbox
+
+image::dropbox.png[float="right"]
+
+== API Dropbox
+
+https://dropbox.github.io/dropbox-api-v2-explorer/
+
+image::dropbox-api.png[]
 
 == Feign
 
-Description
+https://github.com/OpenFeign/feign
 
-== Example Feign
+image::netflix.png[float="right"]
 
-Code
+* client http en java
+* pas de dépendances
+* des modules d'extension : jackson, gson, jaxb, jaxrs ...
 
+[source,xml]
+.Maven
+----
+<dependency>
+    <groupId>com.netflix.feign</groupId>
+    <artifactId>feign-core</artifactId>
+    <version>${feign.version}</version>
+</dependency>
+----
+
+== Juste une interface
+
+[source,java]
+----
+include::{src}/Dropbox.java[tags=feignInterface]
+----
+
+== Feign Builder
+
+[source,java]
+----
+include::{src}/Dropbox.java[tags=feignBuilder]
+----
+
+== Pas plus compliqué que ça !
+
+[source,java]
+----
+include::{test}/DropboxTest.java[tags=feignMain]
+----
+
+[source]
+----
+/Photos
+/Public
+/Documents
+----
 == CREST
 
-description
+https://github.com/tomitribe/crest
 
-== Example CREDT
+image::tomitribe.png[float="right"]
 
-code
+* permet de faire rapidement des outils en ligne de commande
+* basé sur des annotations (_JAX-RS style_)
+* gère la validation des paramètres et la génération d'aide
 
-== Les deux ensemble
+[source,xml]
+.Maven
+----
+<dependency>
+    <groupId>org.tomitribe</groupId>
+    <artifactId>tomitribe-crest-api</artifactId>
+    <version>${tomitribe.version}</version>
+</dependency>
+<dependency>
+    <groupId>org.tomitribe</groupId>
+    <artifactId>tomitribe-crest</artifactId>
+    <version>${tomitribe.version}</version>
+    <scope>runtime</scope>
+</dependency>
+----
 
-Très peu de code pour faire un client http en ligne de commande
+== Une méthode = une commande
 
-== Example Pokémon API
+[source,java]
+----
+include::{src}/Commands.java[tags=crestCommand1]
+----
 
-Code
+* le nom de la méthode est le nom de la commande
+* le retour de la méthode est envoyée vers la sortie standard
 
-== Conclusion
+== Une commandes avec des paramètres
 
-Nombre de lignes de code
-Taille du jar
+[source,java]
+----
+include::{src}/Commands.java[tags=crestCommand2]
+----
+
+* tout paramètre de la méthode est un paramètre *obligatoire*
+de la commande
+
+== Une commande avec des options
+
+[source,java]
+----
+include::{src}/Commands.java[tags=crestCommand3]
+----
+
+* tout paramètre de la méthode annoté avec `@Options` est
+un paramètre *falculatif* de la commande
+* `@Default` permet de donner une valeur par défaut d'une option
+
+== Appeler une commande
+
+[source]
+----
+$ java -jar dropbox-cli.jar mkdir
+Missing argument: Path...
+
+Usage: mkdir Path
+----
+
+NOTE: Crest fournit une classe Main par défaut : `org.tomitribe.crest.Main`
+
+== Intégration avec JLine
+
+* complétion des commandes
+* ajoute des commandes basiques : `help`, `exit`, `clear` ...
+* gère un historique
+* support le pipe `|`
+
+[source,xml]
+.Maven
+----
+<dependency>
+    <groupId>org.tomitribe</groupId>
+    <artifactId>tomitribe-crest-cli</artifactId>
+    <version>${tomitribe.version}</version>
+</dependency>
+----
+
+[source,java]
+----
+include::{src}/Commands.java[tags=crestCli]
+----
+
+== Commmand Line Interface
+
+[source]
+----
+$ java -jar dropbox-cli.jar
+
+benoit@1.8.0 $ help
+Commands:
+
+   clear
+   exit
+   help
+   ls
+   mkdir
+   whoami
+
+benoit@1.8.0 $ whoami
+Benoit Prioux
+
+----
+
+== Démo Dropbox
+
+image::dropbox-demo.png[]
+
+== Pas mal non ?
+
+Très peu de code pour faire un client http en ligne de commande :
+
+* une interface Feign (+ les POJOs pour le mapping Json)
+* une classe de commands CREST
+
+Ajouter une nouvelle commande :
+
+* ajouter une méthode dans l'interface Feign
+* ajouter une méthode dans la classe des commandes Crest
+
+== One more command ?
+
+[quote]
+Et si on codait ensemble la génération de lien temporaire ?
+
+[source]
+.get_temporary_link
+----
+POST /2/files/get_temporary_link
+Content-Type: application/json
+{
+    "path": ""
+}
+----
