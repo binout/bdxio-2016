@@ -28,28 +28,54 @@ teste la doc
 La documentation doit rester vivante !
 La maintenance reste l'enjeu majeur.
 
+== Documentation Technique
 
-== Outil #1
+* API REST
+* README
 
-Asciidoctor
-Avec l'inclusion de source, de fichier json
+== Asciidoctor
 
-== Outil #2
+TODO
 
+== Include macro
+
+Avec l'inclusion de source, de fichier json, de fichier java
+
+== Documentation Métier
+
+* Specifications
+* Glossaire
+
+== BDD
 BDD avec cucumber
+http://rmpestano.github.io/cukedoctor/
 
-== Outil #3
+== Génération à partir du code
 
 Génération de la doc à partir du code
 Soit avec une doclet
 Soit avec qdox
 
-== Outil #5
+== Documentation Architecture
+
+* diagramme de classe, de séquence
+* diagramme d'architecture
+
+== dot syntax
 
 Dot diagramme
 plantuml viewer
 
-== conseil
+== Génération depuis le code
+
+* Retro architecture
+
+== GitHub : livingdoc organisation
+
+* dot-diagram
+* maven plugin
+
+== Conseil
 
 La meilleure doc c'est celle qu'on écrit pas !
 Avant d'écrire une doc
