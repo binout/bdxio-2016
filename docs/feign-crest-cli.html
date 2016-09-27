@@ -212,7 +212,18 @@ pour gérer ma Dropbox
 <h2>Juste une interface</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/main/java/io/github/binout/dropbox/Dropbox.java[tags=feignInterface]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">Dropbox</span> {
+
+    <span class="annotation">@RequestLine</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">POST /files/list_folder</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Headers</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span>)
+    FolderList listFolder(Path path);
+
+    <span class="annotation">@RequestLine</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">POST /files/create_folder</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Headers</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span>)
+    <span class="type">void</span> createFolder(Path path);
+
+    <span class="annotation">@RequestLine</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">POST /users/get_current_account</span><span class="delimiter">&quot;</span></span>)
+    Account currentAccount();</code></pre>
 </div>
 </div>
 </section>
@@ -220,7 +231,13 @@ pour gérer ma Dropbox
 <h2>Feign Builder</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/main/java/io/github/binout/dropbox/Dropbox.java[tags=feignBuilder]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="directive">static</span> Dropbox api() {
+        <span class="keyword">return</span> Feign.builder()
+                .encoder(<span class="keyword">new</span> GsonEncoder())
+                .decoder(<span class="keyword">new</span> GsonDecoder())
+                .requestInterceptor(r -&gt; r.header(<span class="string"><span class="delimiter">&quot;</span><span class="content">Authorization</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Bearer </span><span class="delimiter">&quot;</span></span> + apiKey()))
+                .target(Dropbox.class, <span class="string"><span class="delimiter">&quot;</span><span class="content">https://api.dropboxapi.com/2</span><span class="delimiter">&quot;</span></span>);
+    }</code></pre>
 </div>
 </div>
 </section>
@@ -228,7 +245,13 @@ pour gérer ma Dropbox
 <h2>Pas plus compliqué que ça !</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/test/java/io/github/binout/dropbox/DropboxTest.java[tags=feignMain]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> main(<span class="predefined-type">String</span><span class="type">[]</span> args) {
+        Dropbox.api()
+                .listFolder(<span class="keyword">new</span> Path(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>))
+                .stream()
+                .map(Folder::getName)
+                .forEach(<span class="predefined-type">System</span>.out::println);
+    }</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -275,7 +298,10 @@ pour gérer ma Dropbox
 <h2>Une méthode = une commande</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/main/java/io/github/binout/dropbox/Commands.java[tags=crestCommand1]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Command</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> whoami() {
+        <span class="keyword">return</span> API.currentAccount().getName().getDisplayName();
+    }</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -289,7 +315,10 @@ pour gérer ma Dropbox
 <h2>Une commandes avec des paramètres</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/main/java/io/github/binout/dropbox/Commands.java[tags=crestCommand2]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Command</span>
+    <span class="directive">public</span> <span class="type">void</span> mkdir(Path path) {
+        API.createFolder(path);
+    }</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -303,7 +332,12 @@ de la commande</li>
 <h2>Une commande avec des options</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/main/java/io/github/binout/dropbox/Commands.java[tags=crestCommand3]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Command</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> ls(<span class="annotation">@Option</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="annotation">@Default</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>) Path path) {
+        <span class="keyword">return</span> API.listFolder(path).stream()
+                .map(Folder::getName)
+                .collect(joining(lineSeparator()));
+    }</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -359,7 +393,9 @@ Crest fournit une classe Main par défaut : <code>org.tomitribe.crest.Main</code
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Unresolved directive in feign-crest-cli.adoc - include::/Users/b.prioux/Workspace/github/bdxio-<span class="integer">2016</span>/dropbox-cli/src/main/java/io/github/binout/dropbox/Commands.java[tags=crestCli]</code></pre>
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="directive">static</span> <span class="type">void</span> main(<span class="predefined-type">String</span><span class="type">[]</span> args) <span class="directive">throws</span> <span class="exception">Exception</span> {
+        <span class="keyword">new</span> CrestCli().run(args);
+    }</code></pre>
 </div>
 </div>
 </section>

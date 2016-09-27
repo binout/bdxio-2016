@@ -1,5 +1,6 @@
 = Toolbox for a living doc
 :icons: font
+:test: {basedir}/dropbox-cli/src/test/java/io/github/binout/dropbox
 
 image::bdx-io.png[float="right"]
 
@@ -66,17 +67,68 @@ Avec l'inclusion de source, de fichier json, de fichier java
 
 == Documentation Métier
 
-* Specifications
-* Glossaire
+[quote]
+BDD (Behaviour Driven Design)
 
-== BDD
-BDD avec cucumber
+* Utilisation du langage naturel et du domaine métier
+pour décrire les spécifications
+* Les spécifications permettenent de créer des tests automatisés
+
+== Cucumber
+
+https://cucumber.io/
+
+image::cucumber.png[]
+
+== cucumber-java en 4 temps
+
+1. Ajouter les dépendances `info.cukes:cucumber-java` et `info.cukes:cucumber-junit`
+2. Un fichier `.feature` en `Gherkin`
+3. Une classe Java faisant le _bridge_ entre le fichier
+et les assertions de test
+4. Une classe Java pour ajouter le runner Cucumber
+
+== Fichier feature
+
+[source]
+----
+include::{test}/bdd/dropbox-cli.feature[]
+----
+
+== Fichier Steps
+
+[source,java]
+----
+include::{test}/bdd/DropboxCliSteps.java[tags=bddSteps]
+----
+
+== Fichier Runner
+
+[source,java]
+----
+include::{test}/bdd/DropboxCliTest.java[]
+----
+
+== Cukedoctor - Living Documentation
+
 http://rmpestano.github.io/cukedoctor/
+
+* Permet de générer de (jolis) rapports en HTML ou en PDF
+
+image::cukedoctor.png[]
+
+== Autre exemple de doc métier
+
+Glossaire::
+* vocabulaire métier de l'application
+* est utilisé par les experts métier
+
+[quote]
+On doit retrouver le même vocabulaire dans le code !
 
 == Génération à partir du code
 
 Génération de la doc à partir du code
-Soit avec une doclet
 Soit avec qdox
 
 == Documentation Architecture

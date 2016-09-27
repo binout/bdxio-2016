@@ -241,22 +241,162 @@ Living Documentation : vous allez aimer la documentation !
 </section>
 <section class="slide" id="_documentation_métier">
 <h2>Documentation Métier</h2>
+<div class="quoteblock">
+<blockquote>
+BDD (Behaviour Driven Design)
+</blockquote>
+</div>
 <div class="ulist">
 <ul>
-<li>Specifications</li>
-<li>Glossaire</li>
+<li>Utilisation du langage naturel et du domaine métier
+pour décrire les spécifications</li>
+<li>Les spécifications permettenent de créer des tests automatisés</li>
 </ul>
 </div>
 </section>
-<section class="slide" id="_bdd">
-<h2>BDD</h2>
-<div class="paragraph"><p>BDD avec cucumber
-<a class="bare" href="http://rmpestano.github.io/cukedoctor/">http://rmpestano.github.io/cukedoctor/</a></p></div>
+<section class="slide" id="_cucumber">
+<h2>Cucumber</h2>
+<div class="paragraph"><p><a class="bare" href="https://cucumber.io/">https://cucumber.io/</a></p></div>
+<div class="imageblock">
+<div class="content">
+<img alt="cucumber" src="images/cucumber.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="_cucumber_java_en_4_temps">
+<h2>cucumber-java en 4 temps</h2>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+Ajouter les dépendances <code>info.cukes:cucumber-java</code> et <code>info.cukes:cucumber-junit</code>
+</li>
+<li>
+Un fichier <code>.feature</code> en <code>Gherkin</code>
+</li>
+<li>
+Une classe Java faisant le <em>bridge</em> entre le fichier
+et les assertions de test
+</li>
+<li>
+Une classe Java pour ajouter le runner Cucumber
+</li>
+</ol>
+</div>
+</section>
+<section class="slide" id="_fichier_feature">
+<h2>Fichier feature</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code>Feature: Features of dropbox command line
+
+  ====
+  [quote]
+  ____
+  In order to manage my Dropbox account,
+  As a Dropbox user
+  I want to use a CLI.
+  ____
+  ====
+
+  [IMPORTANT]
+  =====
+  You need to retrieve a API key for https://dropbox.github.io/dropbox-api-v2-explorer[Dropbox API v2]
+  =====
+
+  Scenario: Command whoami
+    Given a dropbox api key
+    When i type "whoami"
+    Then it should return my name
+
+  Scenario: Command ls
+    Given a dropbox api key
+    When i type "ls"
+    Then it should return a list of path</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_fichier_steps">
+<h2>Fichier Steps</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Given</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">^a dropbox api key$</span><span class="delimiter">&quot;</span></span>)
+    <span class="directive">public</span> <span class="type">void</span> a_dropbox_api_key() <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
+        assertThat(Dropbox.apiKey()).isNotNull();
+    }
+
+    <span class="annotation">@When</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">i type </span><span class="char">\&quot;</span><span class="content">([^</span><span class="char">\&quot;</span><span class="content">]*)</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>)
+    <span class="directive">public</span> <span class="type">void</span> i_type_a_command(<span class="predefined-type">String</span> command) <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
+        <span class="local-variable">this</span>.result = executeCommand(command);
+    }
+
+    <span class="annotation">@Then</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">^it should return my name$</span><span class="delimiter">&quot;</span></span>)
+    <span class="directive">public</span> <span class="type">void</span> it_should_return_my_name() <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
+        assertThat(result).contains(<span class="string"><span class="delimiter">&quot;</span><span class="content">Benoît Prioux</span><span class="delimiter">&quot;</span></span>);
+    }
+
+    <span class="annotation">@Then</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">^it should return a list of path$</span><span class="delimiter">&quot;</span></span>)
+    <span class="directive">public</span> <span class="type">void</span> it_should_return_a_list_of_path() <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
+        <span class="predefined-type">Arrays</span>.stream(result.split(<span class="predefined-type">System</span>.lineSeparator())).forEach(p -&gt; assertThat(p).startsWith(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>));
+    }
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_fichier_runner">
+<h2>Fichier Runner</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="keyword">package</span> <span class="namespace">io.github.binout.dropbox.bdd</span>;
+
+<span class="keyword">import</span> <span class="include">cucumber.api.CucumberOptions</span>;
+<span class="keyword">import</span> <span class="include">cucumber.api.junit.Cucumber</span>;
+<span class="keyword">import</span> <span class="include">org.junit.runner.RunWith</span>;
+
+<span class="annotation">@RunWith</span>(Cucumber.class)
+<span class="annotation">@CucumberOptions</span>(strict=<span class="predefined-constant">true</span>, plugin = {<span class="string"><span class="delimiter">&quot;</span><span class="content">json:target/cucumber.json</span><span class="delimiter">&quot;</span></span>} )
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DropboxCliTest</span> {
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_cukedoctor_living_documentation">
+<h2>Cukedoctor - Living Documentation</h2>
+<div class="paragraph"><p><a class="bare" href="http://rmpestano.github.io/cukedoctor/">http://rmpestano.github.io/cukedoctor/</a></p></div>
+<div class="ulist">
+<ul>
+<li>Permet de générer de (jolis) rapports en HTML ou en PDF</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="cukedoctor" src="images/cukedoctor.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="_autre_exemple_de_doc_métier">
+<h2>Autre exemple de doc métier</h2>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Glossaire</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>vocabulaire métier de l&#8217;application</li>
+<li>est utilisé par les experts métier</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="quoteblock">
+<blockquote>
+On doit retrouver le même vocabulaire dans le code !
+</blockquote>
+</div>
 </section>
 <section class="slide" id="_génération_à_partir_du_code">
 <h2>Génération à partir du code</h2>
 <div class="paragraph"><p>Génération de la doc à partir du code
-Soit avec une doclet
 Soit avec qdox</p></div>
 </section>
 <section class="slide" id="_documentation_architecture">
