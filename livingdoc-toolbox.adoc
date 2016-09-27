@@ -1,4 +1,5 @@
-= La boîte à outils pour une living documentation
+= Toolbox for a living doc
+:icons: font
 
 image::bdx-io.png[float="right"]
 
@@ -11,29 +12,51 @@ image::me.png[]
 
 == Il y un an ...
 
-Cyril Martraire présentait "Living Documentation"
+[quote, Cyril Martraire, BDX/IO 2015 ]
+Living Documentation : vous allez aimer la documentation !
+
+.Aussi à Devoxx France 2016
+video::Tw-wcps7WqU[youtube]
 
 == Et aussi le livre
 
-Sur leanpub
+image::leanpub.png[]
 
-== Documentation is the new code
+== Documentation 2.0
 
-Avec le code
-Compile la doc
-teste la doc
+image::doc-is-the-new-code.png[]
+
+* La _documentation_ est avec le _code_
+* La _documentation_ se build avec le _code_
+* La _documentation_ se teste comme le _code_
 
 == Mais...
 
-La documentation doit rester vivante !
-La maintenance reste l'enjeu majeur.
+image::alive.png[]
+
+* La documentation doit rester *vivante* !
+
+* La *maintenance* reste l'enjeu majeur.
+
+== Ma boîte à outils
+
+image::toolbox.png[]
 
 == Documentation Technique
 
-* API REST
-* README
+`README` ::
+* description d'un projet, du contexte
+* outils de build
 
-== Asciidoctor
+`TUTORIAL` ::
+* getting started
+* examples de codes
+
+`API REST` ::
+* documentation des ressources
+
+
+== Asciidoctor !
 
 TODO
 

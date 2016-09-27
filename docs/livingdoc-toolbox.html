@@ -4,7 +4,16 @@
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 <meta content="Asciidoctor 1.5.0" name="generator" />
-<title>La boîte à outils pour une living documentation</title>
+<title>Toolbox for a living doc</title>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 1.2em; height: 1.2em; font-size: 0.9em; font-weight: bold; line-height: 1.2; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -0.1em; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+.colist table td:first-of-type { padding-right: 0.25em; }
+</style>
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
@@ -109,7 +118,7 @@ table.CodeRay td.code>pre{padding:0}
 <body class="article">
 <div class="deck-container">
 <section class="slide" id="title-slide">
-<h1>La boîte à outils pour une living documentation</h1>
+<h1>Toolbox for a living doc</h1>
 </section>
 <div id="preamble">
 <div class="sectionbody">
@@ -122,8 +131,8 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <section class="slide" id="_me">
 <h2>Me</h2>
-<div class="paragraph"><p><span class="icon">[twitter]</span> @binout
-<span class="icon">[github]</span> <a class="bare" href="https://github.com/binout">https://github.com/binout</a></p></div>
+<div class="paragraph"><p><span class="icon"><i class="icon-twitter"></i></span> @binout
+<span class="icon"><i class="icon-github"></i></span> <a class="bare" href="https://github.com/binout">https://github.com/binout</a></p></div>
 <div class="imageblock">
 <div class="content">
 <img alt="me" src="images/me.png" />
@@ -132,45 +141,157 @@ table.CodeRay td.code>pre{padding:0}
 </section>
 <section class="slide" id="_il_y_un_an">
 <h2>Il y un an &#8230;&#8203;</h2>
-<div class="paragraph"><p>Cyril Martraire présentait "Living Documentation"</p></div>
+<div class="quoteblock">
+<blockquote>
+Living Documentation : vous allez aimer la documentation !
+<div class="attribution">
+<cite>Cyril Martraire, BDX/IO 2015</cite>
+</div>
+</blockquote>
+</div>
+<div class="videoblock">
+<iframe allowfullscreen="allowfullscreen" src="//www.youtube.com/embed/Tw-wcps7WqU?rel=0"></iframe>
+</div>
 </section>
 <section class="slide" id="_et_aussi_le_livre">
 <h2>Et aussi le livre</h2>
-<div class="paragraph"><p>Sur leanpub</p></div>
+<div class="imageblock">
+<div class="content">
+<img alt="leanpub" src="images/leanpub.png" />
+</div>
+</div>
 </section>
-<section class="slide" id="_documentation_is_the_new_code">
-<h2>Documentation is the new code</h2>
-<div class="paragraph"><p>Avec le code
-Compile la doc
-teste la doc</p></div>
+<section class="slide" id="_documentation_2_0">
+<h2>Documentation 2.0</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="doc is the new code" src="images/doc-is-the-new-code.png" />
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>La <em>documentation</em> est avec le <em>code</em></li>
+<li>La <em>documentation</em> se build avec le <em>code</em></li>
+<li>La <em>documentation</em> se teste comme le <em>code</em></li>
+</ul>
+</div>
 </section>
 <section class="slide" id="_mais">
 <h2>Mais&#8230;&#8203;</h2>
-<div class="paragraph"><p>La documentation doit rester vivante !
-La maintenance reste l&#8217;enjeu majeur.</p></div>
+<div class="imageblock">
+<div class="content">
+<img alt="alive" src="images/alive.png" />
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>La documentation doit rester <strong>vivante</strong> !</li>
+<li>La <strong>maintenance</strong> reste l&#8217;enjeu majeur.</li>
+</ul>
+</div>
 </section>
-<section class="slide" id="_outil_1">
-<h2>Outil #1</h2>
-<div class="paragraph"><p>Asciidoctor
-Avec l&#8217;inclusion de source, de fichier json</p></div>
+<section class="slide" id="_ma_boîte_à_outils">
+<h2>Ma boîte à outils</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="toolbox" src="images/toolbox.png" />
+</div>
+</div>
 </section>
-<section class="slide" id="_outil_2">
-<h2>Outil #2</h2>
-<div class="paragraph"><p>BDD avec cucumber</p></div>
+<section class="slide" id="_documentation_technique">
+<h2>Documentation Technique</h2>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>README</code> </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>description d&#8217;un projet, du contexte</li>
+<li>outils de build</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code>TUTORIAL</code> </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>getting started</li>
+<li>examples de codes</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><code>API REST</code> </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>documentation des ressources</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 </section>
-<section class="slide" id="_outil_3">
-<h2>Outil #3</h2>
+<section class="slide" id="_asciidoctor">
+<h2>Asciidoctor !</h2>
+<div class="paragraph"><p>TODO</p></div>
+</section>
+<section class="slide" id="_include_macro">
+<h2>Include macro</h2>
+<div class="paragraph"><p>Avec l&#8217;inclusion de source, de fichier json, de fichier java</p></div>
+</section>
+<section class="slide" id="_documentation_métier">
+<h2>Documentation Métier</h2>
+<div class="ulist">
+<ul>
+<li>Specifications</li>
+<li>Glossaire</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_bdd">
+<h2>BDD</h2>
+<div class="paragraph"><p>BDD avec cucumber
+<a class="bare" href="http://rmpestano.github.io/cukedoctor/">http://rmpestano.github.io/cukedoctor/</a></p></div>
+</section>
+<section class="slide" id="_génération_à_partir_du_code">
+<h2>Génération à partir du code</h2>
 <div class="paragraph"><p>Génération de la doc à partir du code
 Soit avec une doclet
 Soit avec qdox</p></div>
 </section>
-<section class="slide" id="_outil_5">
-<h2>Outil #5</h2>
+<section class="slide" id="_documentation_architecture">
+<h2>Documentation Architecture</h2>
+<div class="ulist">
+<ul>
+<li>diagramme de classe, de séquence</li>
+<li>diagramme d&#8217;architecture</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_dot_syntax">
+<h2>dot syntax</h2>
 <div class="paragraph"><p>Dot diagramme
 plantuml viewer</p></div>
 </section>
+<section class="slide" id="_génération_depuis_le_code">
+<h2>Génération depuis le code</h2>
+<div class="ulist">
+<ul>
+<li>Retro architecture</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_github_livingdoc_organisation">
+<h2>GitHub : livingdoc organisation</h2>
+<div class="ulist">
+<ul>
+<li>dot-diagram</li>
+<li>maven plugin</li>
+</ul>
+</div>
+</section>
 <section class="slide" id="_conseil">
-<h2>conseil</h2>
+<h2>Conseil</h2>
 <div class="paragraph"><p>La meilleure doc c&#8217;est celle qu&#8217;on écrit pas !
 Avant d&#8217;écrire une doc
 - pour quel public ?
