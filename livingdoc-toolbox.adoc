@@ -57,13 +57,84 @@ image::toolbox.png[]
 * documentation des ressources
 
 
-== Asciidoctor !
+== Asciidoc et Asciidoctor !
 
-TODO
+*Asciidoc*:: langage de _balisage_ (aka Markdown mais en mieux icon:smile-o[])
 
-== Include macro
+image::asciidoctor.png[float="right"]
 
-Avec l'inclusion de source, de fichier json, de fichier java
+*Asciidoctor*:: toolchain pour convertir l'asciidoc en html, pdf, epub, ...
+
+.Pourquoi ?
+
+1. on se concentre plus sur le fond que sur la forme
+2. c'est du texte, donc un éditeur classique suffit
+3. on peut gérer l'historique avec un SCM
+4. on a un peu l'impression de coder icon:thumbs-up[]
+
+== Macro `include` pour du code
+
+[source, asciidoc]
+----
+== Code examples
+
+[source,java]
+---
+include:{basedir}/src/main/java/io/github/binout/Geek.java[]
+---
+
+----
+
+[quote]
+La documentation présente le code à jour et sans erreur !
+
+== Macro `include` pour un morceau code
+
+[source, asciidoc]
+----
+== Code examples
+
+[source,java]
+---
+include:{basedir}/src/main/java/io/github/binout/Geek.java[tags=hype]
+---
+
+----
+
+[source, java]
+----
+public class Geek  {
+
+    String getName();
+
+    //tag::hype[]
+    Hype computeHype(int age, String language)
+    //end::hype[]
+}
+----
+
+== Macro `include` pour un fichier de test
+
+[source, asciidoc]
+----
+== Body
+
+[source,asciidoc]
+---
+include:{basedir}/src/test/resources/io/github/binout/geek.json[]
+---
+
+----
+
+.geek.json
+[source, javascript]
+----
+{
+  "name" : "binout",
+  "language" : "java",
+  "hype" : 100
+}
+----
 
 == Documentation Métier
 
@@ -72,7 +143,7 @@ BDD (Behaviour Driven Design)
 
 * Utilisation du langage naturel et du domaine métier
 pour décrire les spécifications
-* Les spécifications permettenent de créer des tests automatisés
+* Les spécifications permettent de créer des tests automatisés
 
 == Cucumber
 
@@ -90,9 +161,20 @@ et les assertions de test
 
 == Fichier feature
 
-[source]
+.Syntaxe gherkin
+[source,java]
 ----
-include::{test}/bdd/dropbox-cli.feature[]
+Feature: Features of dropbox command line
+
+  Scenario: Command whoami
+    Given a dropbox api key
+    When i type "whoami"
+    Then it should return my name
+
+  Scenario: Command ls
+    Given a dropbox api key
+    When i type "ls"
+    Then it should return a list of path
 ----
 
 == Fichier Steps
@@ -119,41 +201,90 @@ image::cukedoctor.png[]
 
 == Autre exemple de doc métier
 
-Glossaire::
+*Glossaire*::
 * vocabulaire métier de l'application
 * est utilisé par les experts métier
 
 [quote]
 On doit retrouver le même vocabulaire dans le code !
 
+== Ajouter la documentation dans le code
+
+.Annotation _marqueur_
+[source, java]
+----
+@Glossary
+/*
+A peculiar person, especially one who is perceived to be overly intellectual, unfashionable, or socially awkward
+*/
+public class Geek {
+  ....
+}
+----
+
 == Génération à partir du code
 
-Génération de la doc à partir du code
-Soit avec qdox
+image::qdox.png[]
+
+* https://github.com/paul-hammant/qdox
+
+== Un joli glossaire à chaque build
+
+image::glossary.png[]
 
 == Documentation Architecture
 
-* diagramme de classe, de séquence
-* diagramme d'architecture
+[quote]
+L'architecte, c'est celui qui fait les diagrammes !
 
-== dot syntax
+image::archi.png[]
 
-Dot diagramme
-plantuml viewer
+== Syntaxe dot
+
+image::digraph.png[float="right"]
+
+[source]
+----
+digraph mon_graphe {
+    a -> b -> c;
+    b -> d;
+}
+----
 
 == Génération depuis le code
 
-* Retro architecture
+image::dot.png[]
 
-== GitHub : livingdoc organisation
+== Visualisation du graphe
 
-* dot-diagram
-* maven plugin
+* GraphViz
 
-== Conseil
+* Plantuml viewer
 
-La meilleure doc c'est celle qu'on écrit pas !
-Avant d'écrire une doc
-- pour quel public ?
-- pour quel objectif ?
-- pour combien de temps ?
+== Retour d'expérience
+
+* A utiliser pour représenter son domaine métier
+** il existe un plugin maven pour ça
+
+* Peut permettre de représenter les choix de design
+** mon domaine ne doit pas dépendre de mon infrastructure
+
+* Peut aussi détecter des erreurs de design !
+
+== Organisation Github !
+
+image::github.png[]
+
+[quote]
+You're welcome !
+
+== Un dernier conseil avant de finir
+
+[quote]
+La meilleure documentation, c'est celle qu'on écrit pas !
+
+Avant d'écrire une documentation (et de la rendre vivante), des questions à se poser :
+
+* pour quel public ?
+* pour quel objectif ?
+* pour combien de temps ?

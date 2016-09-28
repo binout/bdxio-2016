@@ -231,13 +231,112 @@ Living Documentation : vous allez aimer la documentation !
 </dl>
 </div>
 </section>
-<section class="slide" id="_asciidoctor">
-<h2>Asciidoctor !</h2>
-<div class="paragraph"><p>TODO</p></div>
+<section class="slide" id="_asciidoc_et_asciidoctor">
+<h2>Asciidoc et Asciidoctor !</h2>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Asciidoc</strong></dt>
+<dd>
+<p>langage de <em>balisage</em> (aka Markdown mais en mieux <span class="icon"><i class="icon-smile-o"></i></span>)</p>
+</dd>
+</dl>
+</div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="asciidoctor" src="images/asciidoctor.png" />
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><strong>Asciidoctor</strong></dt>
+<dd>
+<p>toolchain pour convertir l&#8217;asciidoc en html, pdf, epub, &#8230;&#8203;</p>
+</dd>
+</dl>
+</div>
+<div class="olist arabic">
+<div class="title">Pourquoi ?</div>
+<ol class="arabic">
+<li>
+on se concentre plus sur le fond que sur la forme
+</li>
+<li>
+c&#8217;est du texte, donc un éditeur classique suffit
+</li>
+<li>
+on peut gérer l&#8217;historique avec un SCM
+</li>
+<li>
+on a un peu l&#8217;impression de coder <span class="icon"><i class="icon-thumbs-up"></i></span>
+</li>
+</ol>
+</div>
 </section>
-<section class="slide" id="_include_macro">
-<h2>Include macro</h2>
-<div class="paragraph"><p>Avec l&#8217;inclusion de source, de fichier json, de fichier java</p></div>
+<section class="slide" id="_macro_code_include_code_pour_du_code">
+<h2>Macro <code>include</code> pour du code</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="asciidoc language-asciidoc">== Code examples
+
+[source,java]
+---
+include:{basedir}/src/main/java/io/github/binout/Geek.java[]
+---</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+La documentation présente le code à jour et sans erreur !
+</blockquote>
+</div>
+</section>
+<section class="slide" id="_macro_code_include_code_pour_un_morceau_code">
+<h2>Macro <code>include</code> pour un morceau code</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="asciidoc language-asciidoc">== Code examples
+
+[source,java]
+---
+include:{basedir}/src/main/java/io/github/binout/Geek.java[tags=hype]
+---</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Geek</span>  {
+
+    <span class="predefined-type">String</span> getName();
+
+    <span class="comment">//tag::hype[]</span>
+    Hype computeHype(<span class="type">int</span> age, <span class="predefined-type">String</span> language)
+    <span class="comment">//end::hype[]</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_macro_code_include_code_pour_un_fichier_de_test">
+<h2>Macro <code>include</code> pour un fichier de test</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="asciidoc language-asciidoc">== Body
+
+[source,asciidoc]
+---
+include:{basedir}/src/test/resources/io/github/binout/geek.json[]
+---</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">geek.json</div>
+<div class="content">
+<pre class="CodeRay"><code class="javascript language-javascript">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">binout</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">language</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">java</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">hype</span><span class="delimiter">&quot;</span></span> : <span class="integer">100</span>
+}</code></pre>
+</div>
+</div>
 </section>
 <section class="slide" id="_documentation_métier">
 <h2>Documentation Métier</h2>
@@ -250,7 +349,7 @@ BDD (Behaviour Driven Design)
 <ul>
 <li>Utilisation du langage naturel et du domaine métier
 pour décrire les spécifications</li>
-<li>Les spécifications permettenent de créer des tests automatisés</li>
+<li>Les spécifications permettent de créer des tests automatisés</li>
 </ul>
 </div>
 </section>
@@ -286,32 +385,19 @@ Une classe Java pour ajouter le runner Cucumber
 <section class="slide" id="_fichier_feature">
 <h2>Fichier feature</h2>
 <div class="listingblock">
+<div class="title">Syntaxe gherkin</div>
 <div class="content">
-<pre class="CodeRay"><code>Feature: Features of dropbox command line
-
-  ====
-  [quote]
-  ____
-  In order to manage my Dropbox account,
-  As a Dropbox user
-  I want to use a CLI.
-  ____
-  ====
-
-  [IMPORTANT]
-  =====
-  You need to retrieve a API key for https://dropbox.github.io/dropbox-api-v2-explorer[Dropbox API v2]
-  =====
+<pre class="CodeRay"><code class="java language-java">Feature: Features of dropbox command line
 
   Scenario: Command whoami
     Given a dropbox api key
-    When i type "whoami"
-    Then it should return my name
+    When i type <span class="string"><span class="delimiter">&quot;</span><span class="content">whoami</span><span class="delimiter">&quot;</span></span>
+    Then it should <span class="keyword">return</span> my name
 
   Scenario: Command ls
     Given a dropbox api key
-    When i type "ls"
-    Then it should return a list of path</code></pre>
+    When i type <span class="string"><span class="delimiter">&quot;</span><span class="content">ls</span><span class="delimiter">&quot;</span></span>
+    Then it should <span class="keyword">return</span> a list of path</code></pre>
 </div>
 </div>
 </section>
@@ -377,7 +463,7 @@ Une classe Java pour ajouter le runner Cucumber
 <h2>Autre exemple de doc métier</h2>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Glossaire</dt>
+<dt class="hdlist1"><strong>Glossaire</strong></dt>
 <dd>
 <div class="ulist">
 <ul>
@@ -394,49 +480,136 @@ On doit retrouver le même vocabulaire dans le code !
 </blockquote>
 </div>
 </section>
+<section class="slide" id="_ajouter_la_documentation_dans_le_code">
+<h2>Ajouter la documentation dans le code</h2>
+<div class="listingblock">
+<div class="title">Annotation <em>marqueur</em></div>
+<div class="content">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Glossary</span>
+<span class="comment">/*
+A peculiar person, especially one who is perceived to be overly intellectual, unfashionable, or socially awkward
+*/</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Geek</span> {
+  ....
+}</code></pre>
+</div>
+</div>
+</section>
 <section class="slide" id="_génération_à_partir_du_code">
 <h2>Génération à partir du code</h2>
-<div class="paragraph"><p>Génération de la doc à partir du code
-Soit avec qdox</p></div>
+<div class="imageblock">
+<div class="content">
+<img alt="qdox" src="images/qdox.png" />
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="https://github.com/paul-hammant/qdox">https://github.com/paul-hammant/qdox</a></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="_un_joli_glossaire_à_chaque_build">
+<h2>Un joli glossaire à chaque build</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="glossary" src="images/glossary.png" />
+</div>
+</div>
 </section>
 <section class="slide" id="_documentation_architecture">
 <h2>Documentation Architecture</h2>
-<div class="ulist">
-<ul>
-<li>diagramme de classe, de séquence</li>
-<li>diagramme d&#8217;architecture</li>
-</ul>
+<div class="quoteblock">
+<blockquote>
+L&#8217;architecte, c&#8217;est celui qui fait les diagrammes !
+</blockquote>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="archi" src="images/archi.png" />
+</div>
 </div>
 </section>
-<section class="slide" id="_dot_syntax">
-<h2>dot syntax</h2>
-<div class="paragraph"><p>Dot diagramme
-plantuml viewer</p></div>
+<section class="slide" id="_syntaxe_dot">
+<h2>Syntaxe dot</h2>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="digraph" src="images/digraph.png" />
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code>digraph mon_graphe {
+    a -&gt; b -&gt; c;
+    b -&gt; d;
+}</code></pre>
+</div>
+</div>
 </section>
 <section class="slide" id="_génération_depuis_le_code">
 <h2>Génération depuis le code</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="dot" src="images/dot.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="_visualisation_du_graphe">
+<h2>Visualisation du graphe</h2>
 <div class="ulist">
 <ul>
-<li>Retro architecture</li>
+<li>GraphViz</li>
+<li>Plantuml viewer</li>
 </ul>
 </div>
 </section>
-<section class="slide" id="_github_livingdoc_organisation">
-<h2>GitHub : livingdoc organisation</h2>
+<section class="slide" id="_retour_d_expérience">
+<h2>Retour d&#8217;expérience</h2>
 <div class="ulist">
 <ul>
-<li>dot-diagram</li>
-<li>maven plugin</li>
+<li><p>
+A utiliser pour représenter son domaine métier<div class="ulist">
+<ul>
+<li>il existe un plugin maven pour ça</li>
+</ul>
+</div></p></li>
+<li><p>
+Peut permettre de représenter les choix de design<div class="ulist">
+<ul>
+<li>mon domaine ne doit pas dépendre de mon infrastructure</li>
+</ul>
+</div></p></li>
+<li>Peut aussi détecter des erreurs de design !</li>
 </ul>
 </div>
 </section>
-<section class="slide" id="_conseil">
-<h2>Conseil</h2>
-<div class="paragraph"><p>La meilleure doc c&#8217;est celle qu&#8217;on écrit pas !
-Avant d&#8217;écrire une doc
-- pour quel public ?
-- pour quel objectif ?
-- pour combien de temps ?</p></div>
+<section class="slide" id="_organisation_github">
+<h2>Organisation Github !</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="github" src="images/github.png" />
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+You&#8217;re welcome !
+</blockquote>
+</div>
+</section>
+<section class="slide" id="_un_dernier_conseil_avant_de_finir">
+<h2>Un dernier conseil avant de finir</h2>
+<div class="quoteblock">
+<blockquote>
+La meilleure documentation, c&#8217;est celle qu&#8217;on écrit pas !
+</blockquote>
+</div>
+<div class="paragraph"><p>Avant d&#8217;écrire une documentation (et de la rendre vivante), des questions à se poser :</p></div>
+<div class="ulist">
+<ul>
+<li>pour quel public ?</li>
+<li>pour quel objectif ?</li>
+<li>pour combien de temps ?</li>
+</ul>
+</div>
 </section>
 <div aria-role="navigation">
 <a class="deck-prev-link" href="#" title="Previous">&#8592;</a>
