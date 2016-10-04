@@ -216,11 +216,12 @@ Ajouter une nouvelle commande :
 Et si on codait ensemble la génération de lien temporaire ?
 
 [source]
-.get_temporary_link
+.create_shared_link_with_settings
 ----
-POST /2/files/get_temporary_link
+POST /2/sharing/create_shared_link_with_settings
 Content-Type: application/json
 {
-    "path": ""
+    "path": "...",
+    "settings": {}
 }
 ----

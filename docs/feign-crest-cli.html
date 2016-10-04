@@ -453,12 +453,13 @@ Et si on codait ensemble la génération de lien temporaire ?
 </blockquote>
 </div>
 <div class="listingblock">
-<div class="title">get_temporary_link</div>
+<div class="title">create_shared_link_with_settings</div>
 <div class="content">
-<pre class="CodeRay"><code>POST /2/files/get_temporary_link
+<pre class="CodeRay"><code>POST /2/sharing/create_shared_link_with_settings
 Content-Type: application/json
 {
-    "path": ""
+    "path": "...",
+    "settings": {}
 }</code></pre>
 </div>
 </div>
