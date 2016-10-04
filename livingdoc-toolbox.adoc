@@ -257,17 +257,28 @@ image::dot.png[]
 
 == Visualisation du graphe
 
-* GraphViz
+* http://www.graphviz.org/
+* https://vincenthee.github.io/DotEditor/
 
-* Plantuml viewer
+* Plantuml supporte `dot`
+[source]
+----
+@startdot
+...
+@enddot
+----
+
+TIP: Plugins https://chrome.google.com/webstore/detail/plantuml-viewer/legbfeljfbjgfifnkmpoajgpgejojooj[Google Chrome]
+et https://atom.io/packages/plantuml-viewer[atom]
 
 == Retour d'expérience
 
 * A utiliser pour représenter son domaine métier
-** il existe un plugin maven pour ça
+** marquer avec des annotations vos entités du domaine
+** représenter avec un graphe les interactions
 
-* Peut permettre de représenter les choix de design
-** mon domaine ne doit pas dépendre de mon infrastructure
+* Peut permettre de _visualiser_ les choix de design
+** "_mon domaine ne doit pas dépendre de mon infrastructure_"
 
 * Peut aussi détecter des erreurs de design !
 

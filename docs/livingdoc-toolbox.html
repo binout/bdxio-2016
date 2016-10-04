@@ -557,9 +557,30 @@ L&#8217;architecte, c&#8217;est celui qui fait les diagrammes !
 <h2>Visualisation du graphe</h2>
 <div class="ulist">
 <ul>
-<li>GraphViz</li>
-<li>Plantuml viewer</li>
+<li><a class="bare" href="http://www.graphviz.org/">http://www.graphviz.org/</a></li>
+<li><a class="bare" href="https://vincenthee.github.io/DotEditor/">https://vincenthee.github.io/DotEditor/</a></li>
+<li>Plantuml supporte <code>dot</code></li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre><code>@startdot
+...
+@enddot</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Plugins <a href="https://chrome.google.com/webstore/detail/plantuml-viewer/legbfeljfbjgfifnkmpoajgpgejojooj">Google Chrome</a>
+et <a href="https://atom.io/packages/plantuml-viewer">atom</a>
+</td>
+</tr>
+</table>
 </div>
 </section>
 <section class="slide" id="_retour_d_expérience">
@@ -569,13 +590,14 @@ L&#8217;architecte, c&#8217;est celui qui fait les diagrammes !
 <li><p>
 A utiliser pour représenter son domaine métier<div class="ulist">
 <ul>
-<li>il existe un plugin maven pour ça</li>
+<li>marquer avec des annotations vos entités du domaine</li>
+<li>représenter avec un graphe les interactions</li>
 </ul>
 </div></p></li>
 <li><p>
-Peut permettre de représenter les choix de design<div class="ulist">
+Peut permettre de <em>visualiser</em> les choix de design<div class="ulist">
 <ul>
-<li>mon domaine ne doit pas dépendre de mon infrastructure</li>
+<li>"<em>mon domaine ne doit pas dépendre de mon infrastructure</em>"</li>
 </ul>
 </div></p></li>
 <li>Peut aussi détecter des erreurs de design !</li>
