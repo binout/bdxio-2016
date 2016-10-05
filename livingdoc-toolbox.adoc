@@ -33,11 +33,15 @@ image::doc-is-the-new-code.png[]
 
 == Mais...
 
-image::alive.png[]
+image::alive.png[float="right"]
 
 * La documentation doit rester *vivante* !
 
 * La *maintenance* reste l'enjeu majeur.
+
+[options="step"]
+[quote]
+Le code doit être la source de la documentation !
 
 == Ma boîte à outils
 
@@ -153,11 +157,18 @@ image::cucumber.png[]
 
 == cucumber-java en 4 temps
 
-1. Ajouter les dépendances `info.cukes:cucumber-java` et `info.cukes:cucumber-junit`
-2. Un fichier `.feature` en `Gherkin`
-3. Une classe Java faisant le _bridge_ entre le fichier
+image::cucumber-jvm.png[float="right"]
+
+1. Ajouter les dépendances cucumber :
+* `info.cukes:cucumber-java`
+* `info.cukes:cucumber-junit`
+[options="step"]
+2. Ecrire un fichier `.feature` en `Gherkin`
+[options="step"]
+3. Coder une classe Java faisant la _glue_ entre les _features_
 et les assertions de test
-4. Une classe Java pour ajouter le runner Cucumber
+[options="step"]
+4. Coder une classe Java pour ajouter le runner Cucumber Junit
 
 == Fichier feature
 
@@ -241,8 +252,6 @@ image::archi.png[]
 
 == Syntaxe dot
 
-image::digraph.png[float="right"]
-
 [source]
 ----
 digraph mon_graphe {
@@ -251,9 +260,14 @@ digraph mon_graphe {
 }
 ----
 
+image::digraph.png[]
+
+
 == Génération depuis le code
 
 image::dot.png[]
+
+* https://github.com/cyriux/dot-diagram
 
 == Visualisation du graphe
 
@@ -271,31 +285,24 @@ image::dot.png[]
 TIP: Plugins https://chrome.google.com/webstore/detail/plantuml-viewer/legbfeljfbjgfifnkmpoajgpgejojooj[Google Chrome]
 et https://atom.io/packages/plantuml-viewer[atom]
 
-== Retour d'expérience
+== Diagramme du domaine
 
 * A utiliser pour représenter son domaine métier
 ** marquer avec des annotations vos entités du domaine
-** représenter avec un graphe les interactions
+** représenter avec un graphe les interactions entre entités
+
+image::archi-diagram.png[]
+
+== Diagramme d'architecture
 
 * Peut permettre de _visualiser_ les choix de design
 ** "_mon domaine ne doit pas dépendre de mon infrastructure_"
 
-* Peut aussi détecter des erreurs de design !
+image::archi-diagram.png[]
 
-== Organisation Github !
+[canvas-image="images/tools.png"]
+== Résumé
+
+== Organisation Github
 
 image::github.png[]
-
-[quote]
-You're welcome !
-
-== Un dernier conseil avant de finir
-
-[quote]
-La meilleure documentation, c'est celle qu'on écrit pas !
-
-Avant d'écrire une documentation (et de la rendre vivante), des questions à se poser :
-
-* pour quel public ?
-* pour quel objectif ?
-* pour combien de temps ?

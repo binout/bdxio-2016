@@ -178,7 +178,7 @@ Living Documentation : vous allez aimer la documentation !
 </section>
 <section class="slide" id="_mais">
 <h2>Mais&#8230;&#8203;</h2>
-<div class="imageblock">
+<div class="imageblock" style="float: right">
 <div class="content">
 <img alt="alive" src="images/alive.png" />
 </div>
@@ -188,6 +188,11 @@ Living Documentation : vous allez aimer la documentation !
 <li>La documentation doit rester <strong>vivante</strong> !</li>
 <li>La <strong>maintenance</strong> reste l&#8217;enjeu majeur.</li>
 </ul>
+</div>
+<div class="quoteblock slide">
+<blockquote>
+Le code doit être la source de la documentation !
+</blockquote>
 </div>
 </section>
 <section class="slide" id="_ma_boîte_à_outils">
@@ -364,20 +369,31 @@ pour décrire les spécifications</li>
 </section>
 <section class="slide" id="_cucumber_java_en_4_temps">
 <h2>cucumber-java en 4 temps</h2>
+<div class="imageblock" style="float: right">
+<div class="content">
+<img alt="cucumber jvm" src="images/cucumber-jvm.png" />
+</div>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-Ajouter les dépendances <code>info.cukes:cucumber-java</code> et <code>info.cukes:cucumber-junit</code>
+<p>Ajouter les dépendances cucumber :</p>
+<div class="ulist">
+<ul>
+<li><code>info.cukes:cucumber-java</code></li>
+<li><code>info.cukes:cucumber-junit</code></li>
+</ul>
+</div>
 </li>
 <li>
-Un fichier <code>.feature</code> en <code>Gherkin</code>
+Ecrire un fichier <code>.feature</code> en <code>Gherkin</code>
 </li>
 <li>
-Une classe Java faisant le <em>bridge</em> entre le fichier
+Coder une classe Java faisant la <em>glue</em> entre les <em>features</em>
 et les assertions de test
 </li>
 <li>
-Une classe Java pour ajouter le runner Cucumber
+Coder une classe Java pour ajouter le runner Cucumber Junit
 </li>
 </ol>
 </div>
@@ -531,17 +547,17 @@ L&#8217;architecte, c&#8217;est celui qui fait les diagrammes !
 </section>
 <section class="slide" id="_syntaxe_dot">
 <h2>Syntaxe dot</h2>
-<div class="imageblock" style="float: right">
-<div class="content">
-<img alt="digraph" src="images/digraph.png" />
-</div>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay"><code>digraph mon_graphe {
     a -&gt; b -&gt; c;
     b -&gt; d;
 }</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="digraph" src="images/digraph.png" />
 </div>
 </div>
 </section>
@@ -551,6 +567,11 @@ L&#8217;architecte, c&#8217;est celui qui fait les diagrammes !
 <div class="content">
 <img alt="dot" src="images/dot.png" />
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li><a class="bare" href="https://github.com/cyriux/dot-diagram">https://github.com/cyriux/dot-diagram</a></li>
+</ul>
 </div>
 </section>
 <section class="slide" id="_visualisation_du_graphe">
@@ -583,54 +604,52 @@ et <a href="https://atom.io/packages/plantuml-viewer">atom</a>
 </table>
 </div>
 </section>
-<section class="slide" id="_retour_d_expérience">
-<h2>Retour d&#8217;expérience</h2>
+<section class="slide" id="_diagramme_du_domaine">
+<h2>Diagramme du domaine</h2>
 <div class="ulist">
 <ul>
 <li><p>
 A utiliser pour représenter son domaine métier<div class="ulist">
 <ul>
 <li>marquer avec des annotations vos entités du domaine</li>
-<li>représenter avec un graphe les interactions</li>
+<li>représenter avec un graphe les interactions entre entités</li>
 </ul>
 </div></p></li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="archi diagram" src="images/archi-diagram.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="_diagramme_d_architecture">
+<h2>Diagramme d&#8217;architecture</h2>
+<div class="ulist">
+<ul>
 <li><p>
 Peut permettre de <em>visualiser</em> les choix de design<div class="ulist">
 <ul>
 <li>"<em>mon domaine ne doit pas dépendre de mon infrastructure</em>"</li>
 </ul>
 </div></p></li>
-<li>Peut aussi détecter des erreurs de design !</li>
 </ul>
 </div>
+<div class="imageblock">
+<div class="content">
+<img alt="archi diagram" src="images/archi-diagram.png" />
+</div>
+</div>
+</section>
+<section class="slide canvas-image" id="_résumé" style="background-image: url(images/tools.png)">
+
 </section>
 <section class="slide" id="_organisation_github">
-<h2>Organisation Github !</h2>
+<h2>Organisation Github</h2>
 <div class="imageblock">
 <div class="content">
 <img alt="github" src="images/github.png" />
 </div>
-</div>
-<div class="quoteblock">
-<blockquote>
-You&#8217;re welcome !
-</blockquote>
-</div>
-</section>
-<section class="slide" id="_un_dernier_conseil_avant_de_finir">
-<h2>Un dernier conseil avant de finir</h2>
-<div class="quoteblock">
-<blockquote>
-La meilleure documentation, c&#8217;est celle qu&#8217;on écrit pas !
-</blockquote>
-</div>
-<div class="paragraph"><p>Avant d&#8217;écrire une documentation (et de la rendre vivante), des questions à se poser :</p></div>
-<div class="ulist">
-<ul>
-<li>pour quel public ?</li>
-<li>pour quel objectif ?</li>
-<li>pour combien de temps ?</li>
-</ul>
 </div>
 </section>
 <div aria-role="navigation">
