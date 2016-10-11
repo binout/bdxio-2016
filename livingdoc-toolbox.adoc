@@ -1,4 +1,4 @@
-= Toolbox for a living doc
+= Boite à outils - Living Documentation
 :icons: font
 :test: {basedir}/dropbox-cli/src/test/java/io/github/binout/dropbox
 
@@ -80,6 +80,8 @@ image::asciidoctor.png[float="right"]
 
 [source, asciidoc]
 ----
+= Tutorial
+
 == Code examples
 
 [source,java]
@@ -96,6 +98,8 @@ La documentation présente le code à jour et sans erreur !
 
 [source, asciidoc]
 ----
+= Tutorial
+
 == Code examples
 
 [source,java]
@@ -112,10 +116,27 @@ public class Geek  {
     String getName();
 
     //tag::hype[]
-    Hype computeHype(int age, String language)
+    Hype computeHype(int age, String language);
     //end::hype[]
 }
 ----
+
+== Macro `include` pour un morceau code
+
+[source, asciidoc]
+----
+= Tutorial
+
+== Code examples
+
+[source,java]
+---
+include:{basedir}/src/main/java/io/github/binout/Geek.java[tags=hype]
+---
+
+----
+
+image::asciidoc-examples.png[]
 
 == Macro `include` pour un fichier de test
 
@@ -206,8 +227,6 @@ include::{test}/bdd/DropboxCliTest.java[]
 
 http://rmpestano.github.io/cukedoctor/
 
-* Permet de générer de (jolis) rapports en HTML ou en PDF
-
 image::cukedoctor.png[]
 
 == Autre exemple de doc métier
@@ -287,11 +306,10 @@ et https://atom.io/packages/plantuml-viewer[atom]
 
 == Diagramme du domaine
 
-* A utiliser pour représenter son domaine métier
-** marquer avec des annotations vos entités du domaine
-** représenter avec un graphe les interactions entre entités
+* marquer avec des annotations vos entités du domaine
+* représenter avec un graphe les interactions entre entités
 
-image::archi-diagram.png[]
+image::domain-diagram.png[]
 
 == Diagramme d'architecture
 

@@ -4,7 +4,7 @@
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 <meta content="Asciidoctor 1.5.0" name="generator" />
-<title>Toolbox for a living doc</title>
+<title>Boite à outils - Living Documentation</title>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
 <style>
 .conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 1.2em; height: 1.2em; font-size: 0.9em; font-weight: bold; line-height: 1.2; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -0.1em; }
@@ -118,7 +118,7 @@ table.CodeRay td.code>pre{padding:0}
 <body class="article">
 <div class="deck-container">
 <section class="slide" id="title-slide">
-<h1>Toolbox for a living doc</h1>
+<h1>Boite à outils - Living Documentation</h1>
 </section>
 <div id="preamble">
 <div class="sectionbody">
@@ -281,7 +281,9 @@ on a un peu l&#8217;impression de coder <span class="icon"><i class="icon-thumbs
 <h2>Macro <code>include</code> pour du code</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="asciidoc language-asciidoc">== Code examples
+<pre class="CodeRay"><code class="asciidoc language-asciidoc">= Tutorial
+
+== Code examples
 
 [source,java]
 ---
@@ -299,7 +301,9 @@ La documentation présente le code à jour et sans erreur !
 <h2>Macro <code>include</code> pour un morceau code</h2>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="asciidoc language-asciidoc">== Code examples
+<pre class="CodeRay"><code class="asciidoc language-asciidoc">= Tutorial
+
+== Code examples
 
 [source,java]
 ---
@@ -314,9 +318,29 @@ include:{basedir}/src/main/java/io/github/binout/Geek.java[tags=hype]
     <span class="predefined-type">String</span> getName();
 
     <span class="comment">//tag::hype[]</span>
-    Hype computeHype(<span class="type">int</span> age, <span class="predefined-type">String</span> language)
+    Hype computeHype(<span class="type">int</span> age, <span class="predefined-type">String</span> language);
     <span class="comment">//end::hype[]</span>
 }</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="_macro_code_include_code_pour_un_morceau_code_2">
+<h2>Macro <code>include</code> pour un morceau code</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="asciidoc language-asciidoc">= Tutorial
+
+== Code examples
+
+[source,java]
+---
+include:{basedir}/src/main/java/io/github/binout/Geek.java[tags=hype]
+---</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="asciidoc examples" src="images/asciidoc-examples.png" />
 </div>
 </div>
 </section>
@@ -464,11 +488,6 @@ Coder une classe Java pour ajouter le runner Cucumber Junit
 <section class="slide" id="_cukedoctor_living_documentation">
 <h2>Cukedoctor - Living Documentation</h2>
 <div class="paragraph"><p><a class="bare" href="http://rmpestano.github.io/cukedoctor/">http://rmpestano.github.io/cukedoctor/</a></p></div>
-<div class="ulist">
-<ul>
-<li>Permet de générer de (jolis) rapports en HTML ou en PDF</li>
-</ul>
-</div>
 <div class="imageblock">
 <div class="content">
 <img alt="cukedoctor" src="images/cukedoctor.png" />
@@ -608,18 +627,13 @@ et <a href="https://atom.io/packages/plantuml-viewer">atom</a>
 <h2>Diagramme du domaine</h2>
 <div class="ulist">
 <ul>
-<li><p>
-A utiliser pour représenter son domaine métier<div class="ulist">
-<ul>
 <li>marquer avec des annotations vos entités du domaine</li>
 <li>représenter avec un graphe les interactions entre entités</li>
-</ul>
-</div></p></li>
 </ul>
 </div>
 <div class="imageblock">
 <div class="content">
-<img alt="archi diagram" src="images/archi-diagram.png" />
+<img alt="domain diagram" src="images/domain-diagram.png" />
 </div>
 </div>
 </section>
