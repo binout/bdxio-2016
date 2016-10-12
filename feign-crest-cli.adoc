@@ -29,6 +29,10 @@ pour gérer ma Dropbox
 
 image::dropbox.png[float="right"]
 
+== En écrivant le moins de code possible !
+
+image::challenge-accepted.png[]
+
 == API Dropbox
 
 https://dropbox.github.io/dropbox-api-v2-explorer/
@@ -202,13 +206,13 @@ image::dropbox-demo.png[]
 
 Très peu de code pour faire un client http en ligne de commande :
 
-* une interface Feign (+ les POJOs pour le mapping Json)
-* une classe de commands CREST
+* une interface `Feign` (+ les POJOs pour le mapping Json)
+* une classe de commandes `CREST`
 
 Ajouter une nouvelle commande :
 
-* ajouter une méthode dans l'interface Feign
-* ajouter une méthode dans la classe des commandes Crest
+* ajouter une méthode dans l'interface `Feign`
+* ajouter une méthode dans la classe des commandes `Crest`
 
 == One more command ?
 
@@ -216,9 +220,9 @@ Ajouter une nouvelle commande :
 Et si on codait ensemble la génération de lien temporaire ?
 
 [source]
-.create_shared_link_with_settings
+.https://dropbox.github.io/dropbox-api-v2-explorer/#sharing_create_shared_link_with_settings[create_shared_link_with_settings]
 ----
-POST /2/sharing/create_shared_link_with_settings
+POST /sharing/create_shared_link_with_settings
 Content-Type: application/json
 {
     "path": "...",
