@@ -164,7 +164,7 @@ include:{basedir}/src/test/resources/io/github/binout/geek.json[]
 == Documentation Métier
 
 [quote]
-BDD (Behaviour Driven Design)
+BDD (Behavior Driven Development)
 
 * Utilisation du langage naturel et du domaine métier
 pour décrire les spécifications
